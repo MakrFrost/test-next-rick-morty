@@ -83,10 +83,11 @@ export default function CharactersId() {
             </ul>
           </div>
         ) : (
-          <>
+          <div className={styles.hero_loader}>
+            <h1>LOADING...</h1>
             <Oval
-              height={80}
-              width={80}
+              height={100}
+              width={100}
               color="#000"
               wrapperStyle={{}}
               wrapperClass=""
@@ -96,7 +97,7 @@ export default function CharactersId() {
               strokeWidth={2}
               strokeWidthSecondary={2}
             />
-          </>
+          </div>
         )}
       </div>
     </div>

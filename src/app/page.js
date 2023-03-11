@@ -12,7 +12,6 @@ import logo from "/public/logo.webp";
 export default function Home() {
   const [characters, setCharacters] = useState(null);
   const [name, setName] = useState("");
-  // const [quantity, setQuantity] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
 
   useEffect(() => {
     const storageCharacters = localStorage.getItem("characters");
@@ -54,7 +53,11 @@ export default function Home() {
           setCharacters(null);
           return;
         }
-        setCharacters(data.results);
+        const quantityMobile = data.results.slice(0, 2);
+        const quantityTable = data.results.slice(0, 8);
+        innerWidth > 768
+          ? setCharacters(quantityTable)
+          : setCharacters(quantityMobile);
       })
       .catch((error) => {
         console.error(error);

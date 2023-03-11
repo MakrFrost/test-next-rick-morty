@@ -77,6 +77,12 @@
     letter-spacing: 0.25px;
     color: #6e798c;
   }
+  &_loader {
+    display: flex;
+    margin-top: 250px;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media screen and (min-width: 425px) {

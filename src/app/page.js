@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { BiSearchAlt2 } from "react-icons/bi";
-import Image from "next/image";
+import { Oval } from "react-loader-spinner";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 import styles from "./page.module.scss";
 import logo from "/public/logo.webp";
-import Link from "next/link";
 
 export default function Home() {
   const [characters, setCharacters] = useState(null);
@@ -18,7 +20,6 @@ export default function Home() {
     if (parsedCharacters) {
       setCharacters(parsedCharacters);
     }
-
     const storageName = localStorage.getItem("name");
     const parsedName = JSON.parse(storageName);
     if (parsedName) {
@@ -64,6 +65,8 @@ export default function Home() {
     const inputName = evt.target.name;
     if (inputName) {
       setName(evt.target.value);
+    } else {
+      return;
     }
   }
   function onFormSubmit(evt) {
@@ -98,9 +101,21 @@ export default function Home() {
 
         <ul className={styles.main_list}>
           {!characters ? (
-            <>
+            <div className={styles.main_loader}>
               <h1>Please, clear input field and try again!</h1>
-            </>
+              <Oval
+                height={80}
+                width={80}
+                color="#000"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="#464646"
+                strokeWidth={2}
+                strokeWidthSecondary={2}
+              />
+            </div>
           ) : (
             characters
               .sort((x, y) => {
@@ -109,9 +124,13 @@ export default function Home() {
               .map((hero) => {
                 return (
                   <li className={styles.main_item} key={hero.id}>
-                    <Link href={"./"} className={styles.main_card}>
+                    <Link
+                      href={`./characters/${hero.id}`}
+                      className={styles.main_card}
+                    >
                       <div className={styles.main_wrap}>
                         <Image
+                          priority
                           fill
                           sizes="(max-width: 768px) 100vw,
               (max-width: 1000px) 50vw,
